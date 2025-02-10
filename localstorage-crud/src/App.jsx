@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function App() {
-
+  //delete  ma error aave chhe
   let getTask = () => {
     let todolist = localStorage.getItem('todo');
     if (todolist) {
