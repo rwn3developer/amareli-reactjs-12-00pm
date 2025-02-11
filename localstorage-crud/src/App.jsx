@@ -35,6 +35,12 @@ function App() {
       setEditId("");
       setTask("")
     }else{
+      let dup = record.find(val => val.taskname == task);
+      if(dup){
+        alert("task already exist")
+        setTask("")
+        return false;
+      }
       let newdata = [...record,obj]
       setRecord(newdata);
       localStorage.setItem('todo',JSON.stringify(newdata));
@@ -44,6 +50,7 @@ function App() {
   }
   const deleteTask = (id) => {
     let deleterecord = record.filter(val => val.taskid!=id);
+    localStorage.setItem('todo',JSON.stringify(deleterecord));
     setRecord(deleterecord);
     alert("task delete");
   }
@@ -51,6 +58,11 @@ function App() {
     setEditId(id)
     let single = record.find(val => val.taskid == id);
     setTask(single.taskname);
+  }
+  const clearAll = () => {
+    setRecord([]);
+    localStorage.setItem('todo',JSON.stringify([]));
+    alert("Delete All record");
   }
 
   return (
@@ -100,6 +112,15 @@ function App() {
                   )
                 })
               }
+
+              {
+                record.length==0 ? (
+                  <button disabled onClick={ () => clearAll() }>ClearAll</button>
+                ) : (
+                  <button onClick={ () => clearAll() }>ClearAll</button>
+                )
+              }
+              
             </tbody>
           </table>
       </div>
