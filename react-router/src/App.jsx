@@ -1,17 +1,20 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
-import Home from "./component/Home"
-import About from "./component/About"
-import Product from "./component/Product"
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from "./pages/Login"
+import Reg from "./pages/Register"
+import Home from "./pages/Home"
+import Addpost from "./pages/Addpost";
+import Viewpost from "./pages/Viewpost";
 function App() {
   return (
-      <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/ab" element={<About/>}/>
-            <Route path="/product" element={<Product/>}/>
-          </Routes>
-      </BrowserRouter>
+     <BrowserRouter>
+      <Routes>
+          <Route path="/" element={<Login/>}/>
+          <Route path="/register" element={<Reg/>}/>
+          <Route path="/addpost" element={<Addpost/>}/>
+          <Route path="/viewpost" element={<Viewpost/>}/>
+      </Routes>
+     </BrowserRouter>
   )
 }
 
