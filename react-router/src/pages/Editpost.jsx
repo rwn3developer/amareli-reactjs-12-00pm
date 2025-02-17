@@ -1,28 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../component/Header'
 import { ToastContainer,toast } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
 
-const Addpost = () => {
+const Editpost = () => {
+
+    let location = useLocation();
+   
     const [posts,setPosts] = useState(JSON.parse(localStorage.getItem('post')) || []);
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
     const [image,setImage] = useState("");
 
+
+    //use effect ne condinaly run karavyu
+    useEffect(()=>{
+        setTitle(location?.state?.title)
+        setDescription(location?.state?.description)
+        setImage(location?.state?.image)
+    },[location?.state]);
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        let post = {
-            postid : Math.floor(Math.random()*1000000),
-            title:title,
-            description:description,
-            image:image
-        }
-        let newpost = [...posts,post];
-        localStorage.setItem('post',JSON.stringify(newpost));
-        setPosts(newpost);
-        toast.success("post successfully add");
-        setTitle("")
-        setDescription("")
-        setImage("")
+        // let post = {
+        //     postid : Math.floor(Math.random()*1000000),
+        //     title:title,
+        //     description:description,
+        //     image:image
+        // }
+        // let newpost = [...posts,post];
+        // localStorage.setItem('post',JSON.stringify(newpost));
+        // setPosts(newpost);
+        // toast.success("post successfully add");
+        // setTitle("")
+        // setDescription("")
+        // setImage("")
 
         
     }
@@ -35,7 +47,7 @@ const Addpost = () => {
                     <div className="col-md-8">
                         <div className="card">
                             <div className="card-header">
-                                Featured
+                                Edit Post
                             </div>
                             <div className="card-body">
                                 <form onSubmit={handleSubmit}>
@@ -71,4 +83,4 @@ const Addpost = () => {
     )
 }
 
-export default Addpost
+export default Editpost
