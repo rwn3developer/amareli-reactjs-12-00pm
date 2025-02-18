@@ -3,7 +3,7 @@ import Header from '../component/Header'
 import { Link, useNavigate } from 'react-router-dom'
 
 const Viewpost = () => {
-  const navigate = useNavigate(); //one page to passdata other page
+  const navigate = useNavigate();
   const [record,setRecord] = useState(JSON.parse(localStorage.getItem('post')) || [])
 
   return (
@@ -34,8 +34,9 @@ const Viewpost = () => {
                                   <img src={val.image} width="100"/>
                                 </td>
                                 <td>
-                                    <button className='btn btn-primary btn-sm' onClick={ () => navigate(`/editpost`,{state:val}) }>Edit</button>
-                     
+                                  <button onClick={ () => navigate(`/editpost`,{state:val}) }>
+                                      Edit
+                                  </button>
                                 </td>
                               </tr> 
                           )

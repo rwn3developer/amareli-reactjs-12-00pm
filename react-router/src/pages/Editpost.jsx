@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../component/Header'
 import { ToastContainer,toast } from 'react-toastify';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 const Editpost = () => {
-
-    let location = useLocation();
+        let location = useLocation();
+        let navigate = useNavigate("");
+        const [editid,setEditId] = useState("");
+        useEffect(()=>{
+            setTitle(location?.state?.title);
+            setDescription(location?.state?.description); 
+            setImage(location?.state?.image);
+            setEditId(location?.state?.postid)
+        },[location?.state])
+        
+        
    
     const [posts,setPosts] = useState(JSON.parse(localStorage.getItem('post')) || []);
     const [title,setTitle] = useState("");
@@ -13,29 +23,25 @@ const Editpost = () => {
     const [image,setImage] = useState("");
 
 
-    //use effect ne condinaly run karavyu
-    useEffect(()=>{
-        setTitle(location?.state?.title)
-        setDescription(location?.state?.description)
-        setImage(location?.state?.image)
-    },[location?.state]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // let post = {
-        //     postid : Math.floor(Math.random()*1000000),
-        //     title:title,
-        //     description:description,
-        //     image:image
-        // }
-        // let newpost = [...posts,post];
-        // localStorage.setItem('post',JSON.stringify(newpost));
-        // setPosts(newpost);
-        // toast.success("post successfully add");
-        // setTitle("")
-        // setDescription("")
-        // setImage("")
+        let up = posts.map((val)=>{
+            if(val.postid == editid){
+                val.title = title
+                val.description = description
+                val.image = image
+            }
+            return val;
+        })
 
+        localStorage.setItem('post',JSON.stringify(up));
+        toast.success("Post Updated Successfully");
+
+        setTimeout(()=>{
+            navigate('/viewpost');
+        },3000)
+        
         
     }
 
