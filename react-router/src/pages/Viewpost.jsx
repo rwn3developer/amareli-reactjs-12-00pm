@@ -11,7 +11,7 @@ const Viewpost = () => {
       <Header />
       <div className='container mt-5'>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-12">
             <table className="table">
               <thead>
                 <tr>
@@ -34,7 +34,7 @@ const Viewpost = () => {
                                   <img src={val.image} width="100"/>
                                 </td>
                                 <td>
-                                  <button onClick={ () => navigate(`/editpost`,{state:val}) }>
+                                  <button className='btn btn-primary' onClick={ () => navigate(`/editpost`,{state:val}) }>
                                       Edit
                                   </button>
                                 </td>
