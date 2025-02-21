@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -11,17 +11,23 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
+  useEffect(()=>{
+    let login = JSON.parse(localStorage.getItem('userLogin'));
+    if(login){
+      navigate('/addpost');
+    }
+  },[])
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
       let  login = users.find(val => val.email == email && val.password == password);
-      
       if(login){
+        localStorage.setItem('userLogin',JSON.stringify(login))
         toast.success("Login Successfully");
         setTimeout(()=>{
           navigate('/addpost')
         },2000);
-
       }else{
         toast.error('Invalid email or password')
       }
@@ -33,7 +39,7 @@ const Register = () => {
     <div>
       <Header />
       <div className='container mt-5'>
-        <h2>User Register</h2>
+        <h2>User Login</h2>
         <div className="row mt-5">
           <div className="col-md-8">
             <div className="card">

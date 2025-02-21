@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../component/Header'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 const Viewpost = () => {
   const navigate = useNavigate();
   const [record,setRecord] = useState(JSON.parse(localStorage.getItem('post')) || [])
+
+   //checkuserlogin
+        useEffect(()=>{
+              let login = JSON.parse(localStorage.getItem('userLogin'));
+              if(!login){
+                  navigate('/');
+              }
+        },[])
 
   return (
     <div>

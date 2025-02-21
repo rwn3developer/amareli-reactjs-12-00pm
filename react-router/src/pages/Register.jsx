@@ -9,11 +9,15 @@ const Register = () => {
   const [users,setUser] = useState(JSON.parse(localStorage.getItem('users')) || []);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+ 
+
   const [password, setPassword] = useState("");
 
 
   const handleSubmit = (event) =>{
     event.preventDefault();
+    console.log(gender);
+    
       let data = {
           userid : Math.floor(Math.random()*100000),
           name : name,
@@ -54,8 +58,8 @@ const Register = () => {
                                     <div className="mb-3">
                                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                                         <input type="password" onChange={ (e) => setPassword(e.target.value) } value={password}  className='form-control'/>
-                                       
                                     </div>
+
                                     <button type="submit" className="btn btn-primary">Submit</button>
                                 </form>
 

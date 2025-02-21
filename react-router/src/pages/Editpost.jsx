@@ -8,6 +8,15 @@ const Editpost = () => {
         let location = useLocation();
         let navigate = useNavigate("");
         const [editid,setEditId] = useState("");
+
+        //checkuserlogin
+             useEffect(()=>{
+                   let login = JSON.parse(localStorage.getItem('userLogin'));
+                   if(!login){
+                       navigate('/');
+                   }
+             },[])
+
         useEffect(()=>{
             setTitle(location?.state?.title);
             setDescription(location?.state?.description); 

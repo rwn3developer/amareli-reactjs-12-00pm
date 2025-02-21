@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Header from '../component/Header'
 import { ToastContainer,toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Addpost = () => {
     const [posts,setPosts] = useState(JSON.parse(localStorage.getItem('post')) || []);
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
     const [image,setImage] = useState("");
+    const navigate = useNavigate();
+
+    //checkuserlogin
+      useEffect(()=>{
+            let login = JSON.parse(localStorage.getItem('userLogin'));
+            if(!login){
+                navigate('/');
+            }
+      },[])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -23,8 +33,14 @@ const Addpost = () => {
         setTitle("")
         setDescription("")
         setImage("")
+    }
 
-        
+    const logoutUser = () => {
+        localStorage.removeItem('userLogin')
+        toast("User Successfully Logout")
+        setTimeout(()=>{
+            navigate('/')
+        },2000);
     }
 
     return (
@@ -59,7 +75,7 @@ const Addpost = () => {
 
                             </div>
                         </div>
-
+                        <button onClick={ () => logoutUser() } className='mt-5 btn btn-danger'>Logout</button>
                     </div>
                 </div>
             </div>
